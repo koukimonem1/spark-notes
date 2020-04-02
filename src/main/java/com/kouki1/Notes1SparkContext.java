@@ -5,7 +5,6 @@ import org.apache.spark.api.java.JavaSparkContext;
 
 public class Notes1SparkContext {
     public static void main(String[] args) {
-        SparkConf conf = new SparkConf().setAppName("kouki-app").setMaster("master");
         /**
          1- SparkContext Object coordinates the process in the cluster
           ** Driver program : the main program that contains the spark-context object
@@ -18,7 +17,11 @@ public class Notes1SparkContext {
           ** A task is a command sent from the driver to an executor by serializing your Function object.
           ** The executor deserializes the command (this is possible because it has loaded your jar), and executes it on a partition
          7- When the driver quits, the executors shut down
+
+         NB: ** Each application gets its own executor process which stay up for the duration of the whole application and run tasks in multiple threads
+             ** The driver program must listen for and accept incoming connections from its executors throughout its lifetime
+             ** Because the driver schedules tasks on the cluster, it should be run close to the worker nodes, preferably on the same local area network
          */
-        JavaSparkContext sc = new JavaSparkContext(conf);
+        JavaSparkContext sc = new JavaSparkContext();
     }
 }
