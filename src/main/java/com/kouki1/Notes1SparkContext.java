@@ -21,6 +21,7 @@ public class Notes1SparkContext {
          NB: ** Each application gets its own executor process which stay up for the duration of the whole application and run tasks in multiple threads
              ** The driver program must listen for and accept incoming connections from its executors throughout its lifetime
              ** Because the driver schedules tasks on the cluster, it should be run close to the worker nodes, preferably on the same local area network
+         !!!! : Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one.
          */
         JavaSparkContext sc = new JavaSparkContext();
     }
