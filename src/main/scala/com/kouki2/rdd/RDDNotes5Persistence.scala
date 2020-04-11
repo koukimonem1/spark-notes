@@ -3,7 +3,7 @@ package com.kouki2.rdd
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.{SparkConf, SparkContext}
 
-class RDDNotes5Persistence {
+object RDDNotes5Persistence {
   def main(args: Array[String]): Unit = {
     //When you persist an RDD, each node stores any partitions of it that it computes in memory and reuses them in other actions on that dataset (or datasets derived from it)
     // The first time it is computed in an action, it will be kept in memory on the nodes
