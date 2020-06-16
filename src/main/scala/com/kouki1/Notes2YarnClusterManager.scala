@@ -1,14 +1,12 @@
-package com.kouki1;
+package com.kouki1
 
-import org.apache.spark.SparkConf;
+import org.apache.spark.SparkConf
 
-public class Notes2YarnClusterManager {
-    public static void main(String[] args) {
-        SparkConf con = new SparkConf()
-                .setAppName("kouki-app")
-                .setMaster("yarn");
-        /**
-         There are two deploy modes that can be used to launch Spark applications on YARN :
+object Notes2YarnClusterManager {
+  val conf = new SparkConf().setAppName("kouki-app").setMaster("yarn")
+
+  /**
+  There are two deploy modes that can be used to launch Spark applications on YARN :
            - Cluster mode, the Spark driver runs inside an application master process which is managed by YARN on the cluster
             => the client can go away after initiating the application
             => In spark submit write : --deploy-mode cluster
@@ -18,6 +16,5 @@ public class Notes2YarnClusterManager {
             =>  To make files on the client available to SparkContext.addJar, include them with the --jars option in the launch command
            - The client will periodically poll the Application Master for status updates and display them in the console
            - The client will exit once your application has finished running
-         */
-    }
+   */
 }
