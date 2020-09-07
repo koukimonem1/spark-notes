@@ -1,65 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>kouki.spark-notes</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+        <scala.version>2.12.6</scala.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.12</artifactId>
+            <artifactId>spark-sql_2.12</artifactId>
+            <version>2.4.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_2.12</artifactId>
             <version>2.4.5</version>
         </dependency>
     </dependencies>
+
     <build>
-        <!-- Scala plugins -->
+        <sourceDirectory>src/main/scala</sourceDirectory>
         <plugins>
             <plugin>
+                <!-- see http://davidb.github.com/scala-maven-plugin -->
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>3.2.1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.3.2</version>
                 <executions>
                     <execution>
-                        <id>scala-compile-first</id>
-                        <phase>process-resources</phase>
                         <goals>
-                            <goal>add-source</goal>
                             <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>scala-test-compile</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
                             <goal>testCompile</goal>
                         </goals>
+                        <configuration>
+                            <args>
+                                <arg>-dependencyfile</arg>
+                                <arg>${project.build.directory}/.scala_dependencies</arg>
+                            </args>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!-- Assembly plugin -->
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <!-- Tests will be run with scalatest-maven-plugin instead -->
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>
