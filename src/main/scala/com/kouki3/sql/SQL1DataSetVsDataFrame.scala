@@ -11,6 +11,10 @@ object SQL1DataSetVsDataFrame extends App{
     .getOrCreate()
   // For implicit conversions like converting RDDs to DataFrames
   import spark.implicits._
-     spark.read.json("dir/resources/people.json")
+    val df = spark.read.json("dir/resources/people.json")
+  // des opérations non typées de DataFrame
+    df.show()
+    df.printSchema()
+    df.select("name").show()
 
 }

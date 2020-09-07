@@ -7,8 +7,14 @@ un alias sur DataSet[Row], dans les versions précédentes ils étaient deux cla
 * DataSet c'est une collection des données immutable, elle fournit les avantages des RDD,comme
 le typage fort et les expressions lambda,
  - DataSet est type safe
- Python ne supporte pas DataSet, car Python est une langage de programmation dont les types des variables
+ - Python ne supporte pas DataSet, car Python est une langage de programmation dont les types des variables
  sont évaluées au moment d'exécution et non au moment de compilation
+ - Encoder : c'est un class qui permet de convertir un objet JVM en une répresentation Spark SQL
+  (le schema SQL) et vis-versa
+  Pour java il faut écrire éxplecitement l'Encoder dans le code
+  Pour scala, c'est généré automatiquement pour les case class
+
+
 
 * DataFrame est une collection des données immutable distribuée dont les données sont orgaisées dans
 des colonnes comme dans une table d'une base des données relationelle grace à un schema imposé.
