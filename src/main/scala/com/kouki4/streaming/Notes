@@ -21,3 +21,15 @@ ou configuration
 pour les traiter.
 - Pour consommer les données depuis plusieurs sources des données : il suffit de créer plusieurs InputStream
  => Ca va créer un Receiver pour chaque InputStream, et chaque Receiver va occuper un core dans le cluster
+
+#############################################################################################################
+
+Il y a deux types de source des données on se basant sur leur fiabilité.
+Une source fiable est une source qui permet les données transférées d'etre reconnues (exemple : kafka).
+i le système recevant les données de ces sources fiables reconnaît correctement les données reçues, il peut être assuré qu'aucune
+donnée ne sera perdue en raison de tout type de panne. Cela conduit à deux types de récepteurs:
+ **  Receiver fiable pour envoyer un acknowledgment à la source si les données sont bien reçues par spark
+ et stockées dans ses exécuteurs
+ ** Receiver non fiable : qui n'envoi pas un acknowledgment à la source
+ On peut l'utiliser si la source ne supporte pas l'acknowledgment, ou si elle accepte mais on ne veut pas que les données
+  soit reconnues à la réception
