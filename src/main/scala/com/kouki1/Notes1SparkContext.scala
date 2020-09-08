@@ -20,6 +20,7 @@ object Notes1SparkContext  extends App{
    ** The driver program must listen for and accept incoming connections from its executors throughout its lifetime
    ** Because the driver schedules tasks on the cluster, it should be run close to the worker nodes, preferably on the same local area network
          !!!! : Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one.
+   https://stackoverflow.com/questions/48087617/why-only-one-sparkcontext-is-allowed-per-jvm
    */
   val sc = new SparkContext()
 }

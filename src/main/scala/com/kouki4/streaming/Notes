@@ -1,0 +1,23 @@
+
+- Une fois le l'objet StreamingContext est démarré (ssc.start()) on pourrais pas lui rajouter d'autre traitement
+ou configuration
+- Si le SSC est arreté, on pourrais pas le redémarrer.
+- Uniquement un seul objet StreamingContext peut etre actif en mm temps et dans la mm JVM
+- A partir d'un seul objet spark context, on peut créer plusieur objet StreamingContext dont un seul qui pourrait etre actif
+- La méthode stop() arrete aussi le context de spark core.
+
+#############################################################################################################
+
+- Les données sont représentées dans DStream
+- Une DStream contient une série des RDD
+- Chaque RDD représente un batch qui contient les données d'un interval du temps
+- Chaque operation appliquée sur une DStream sera traduit en des opération sur les RDD sous-jacents
+
+#############################################################################################################
+
+- Input DStream :c'est une DStream initiale qui lit les données depuis une source streaming (exemples : kafka, netcat server..)
+- Chaque InputStream est associé à un objet de type Receiver
+- Un Receiver permet de recevoir les données depuis une source des données et les stockent dans la mémoire des exécteurs
+pour les traiter.
+- Pour consommer les données depuis plusieurs sources des données : il suffit de créer plusieurs InputStream
+ => Ca va créer un Receiver pour chaque InputStream, et chaque Receiver va occuper un core dans le cluster

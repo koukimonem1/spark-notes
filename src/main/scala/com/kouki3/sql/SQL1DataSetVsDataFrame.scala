@@ -17,4 +17,10 @@ object SQL1DataSetVsDataFrame extends App{
     df.printSchema()
     df.select("name").show()
 
+  // On peut érire des requete SQL directement, mais il faut tout d'abord enregistrer la DataFrame
+  // en tant que Vue temporaire
+  df.createOrReplaceTempView("people")
+  val sqlDF = spark.sql("SELECT * FROM people")
+  sqlDF.show()
+
 }
