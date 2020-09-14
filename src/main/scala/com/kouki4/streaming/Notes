@@ -33,3 +33,32 @@ donnée ne sera perdue en raison de tout type de panne. Cela conduit à deux typ
  ** Receiver non fiable : qui n'envoi pas un acknowledgment à la source
  On peut l'utiliser si la source ne supporte pas l'acknowledgment, ou si elle accepte mais on ne veut pas que les données
   soit reconnues à la réception
+
+#############################################################################################################
+
+UpdateStateByKey
+
+C'est une fonction qu'on utilise en spark streaming quand on travaille avec des données clé-valeur.
+Cette fonction permet de garder les clé-valeur des anciens batchs (RDDs) et d'appliquer une fonction pour mettre
+à jour les valeurs des tout les clés existants.
+=> Spark va appliquer cette fonction sur tout les clès existants indépandemment s'ils contiennet des vouvelles données
+dans le nouveau batch ou non , ET S'IL NE CONTIENT PAS, IL VA L'ELIMINER DU NOUVEAU BATCH.
+Pour appliquer updateStateByKey il faut activer le checkpointing.
+
+#############################################################################################################
+
+Checkpointing
+
+Généralement les applications streaming comme celle qui utilisent spark streaming tourne 7/7 24/24.
+Il faut que ces applications soient tolérent aux pannes
+Checkpointing permet de stocker les données des batch dans un système de fichier comme HDFS, pour pouvoir
+reprendre le traitement ou il est tomber en panne.
+Il y a deux types des données qui sont chekpointées :
+- MetaData : * Configuration
+             * Les opérations de DStream
+             * Les batch qui n'ont pas terminés encore
+ !!! Quand le driver programme redémarre après etre tombé en panne, il va recréer l'objet StreamingContext
+ à travers les metadata stockées dans le repertoire de checkpointing
+
+- Les data : Stocker les RDDs générées dans un système de stockage( ex : HDFS) si on utilise des operations
+qui dépendent des anciens batchs comme updateStateByKey

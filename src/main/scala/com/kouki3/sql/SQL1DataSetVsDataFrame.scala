@@ -3,7 +3,7 @@ import org.apache.spark.sql.SparkSession
 
 
 object SQL1DataSetVsDataFrame extends App{
-
+println("koukiiiiiiiiiiiiiiiiii")
   val spark = SparkSession
     .builder()
     .appName("Spark SQL basic example")
@@ -11,7 +11,7 @@ object SQL1DataSetVsDataFrame extends App{
     .getOrCreate()
   // For implicit conversions like converting RDDs to DataFrames
   import spark.implicits._
-    val df = spark.read.json("dir/resources/people.json")
+    val df = spark.read.json("/home/kouki/IdeaProjects/spark-notes/dir/resources/people.json")
   // des opérations non typées de DataFrame
     df.show()
     df.printSchema()
